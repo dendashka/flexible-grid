@@ -1,0 +1,32 @@
+{
+  "name": "flexible-grid",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.scss",
+  "author": "Denis",
+  "license": "ISC",
+  "files": [
+    "main.scss",
+    "modules/"
+  ],
+  "scripts": {
+    "lint": "stylelint '**/*.scss'",
+    "lint:fix": "stylelint '**/*.scss' --fix",
+    "format": "prettier --write '**/*.scss'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dendashka/flexible-grid.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dendashka/flexible-grid/issues"
+  },
+  "homepage": "https://github.com/dendashka/flexible-grid#readme",
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "stylelint": "^16.19.1",
+    "stylelint-config-prettier-scss": "^1.0.0",
+    "stylelint-config-standard-scss": "^15.0.1",
+    "stylelint-scss": "^6.12.0"
+  }
+}

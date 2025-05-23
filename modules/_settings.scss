@@ -1,0 +1,29 @@
+$grid-breakpoints: (
+    // 0 breakpoint size is required first element value into breakpoints, other you may change as you want
+    // media query mixin for 0 breakpoint size just generate styles for selectors without css media query
+    // you may not use 'xs' size mixin in project, its used below to set some default values
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px
+) !default;
+$grid-variables: (
+    // you may set more 'key: value' for any breakpoint, required is key for '0' value
+    content-width: (
+            xs: 700px,
+            lg: 1160px,
+            // xxl: 1200px, // example
+        ),
+    content-padding: (
+        xs: 15px,
+        lg: 50px,
+        // xxl: 20px, // example
+    ),
+    gutter: (
+        xs: 15px,
+        // xxl: 20px, // example
+    )
+) !default;
+$grid-columns: 12 !default;

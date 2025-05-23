@@ -1,0 +1,93 @@
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:list';
+@import './modules/settings';
+@import './modules/media-mixins';
+@import './modules/grid-mixins';
+
+:root {
+    --columns: #{$grid-columns};
+
+    @each $key, $variables in $grid-variables {
+        @each $size, $value in $variables {
+            @include breakpoint($size) {
+                --#{$key}: #{$value};
+            }
+        }
+    }
+}
+
+.container {
+    @include container;
+}
+
+.row {
+    @include row;
+}
+
+%column-styles {
+    @include col;
+}
+
+@each $breakpoint, $size in $grid-breakpoints {
+    @if list.index(map.keys($grid-breakpoints), $breakpoint) == 1 {
+        @for $i from 0 through $grid-columns {
+            @if $i == 0 {
+                .col {
+                    @extend %column-styles;
+                    @include size(auto); // By default column size is auto
+                }
+            } @else {
+                .col-#{$i} {
+                    @extend %column-styles;
+                    @include size($i);
+                }
+            }
+        }
+    } @else {
+        @for $i from 1 through $grid-columns {
+            .col-#{$breakpoint}-#{$i} {
+                @include breakpoint($breakpoint) {
+                    @include size($i);
+                }
+            }
+
+            .col-#{$breakpoint}-auto {
+                @include breakpoint($breakpoint) {
+                    @include size(auto);
+                }
+            }
+
+            [class*='col-#{$breakpoint}-'] {
+                @extend %column-styles;
+            }
+        }
+    }
+}
+
+@each $breakpoint, $size in $grid-breakpoints {
+    @if list.index(map.keys($grid-breakpoints), $breakpoint) == 1 {
+        @for $i from 1 through $grid-columns {
+            @if $i != $grid-columns {
+                .offset-#{$i} {
+                    @include offset($i);
+                }
+            }
+        }
+    } @else {
+        @for $i from 1 through $grid-columns {
+            @if $i != $grid-columns {
+                .offset-#{$breakpoint}-#{$i} {
+                    @include breakpoint($breakpoint) {
+                        @include offset($i);
+                    }
+                }
+            }
+        }
+        .offset-#{$breakpoint}-0 {
+            @include breakpoint($breakpoint) {
+                @include offset(0);
+            }
+        }
+    }
+}

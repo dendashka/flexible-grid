@@ -1,0 +1,48 @@
+@use 'sass:meta';
+
+@mixin container() {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: calc(var(--content-width) + var(--content-padding) * 2);
+    margin: 0 auto;
+    padding: 0 var(--content-padding);
+}
+
+@mixin row() {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: calc(var(--gutter) * -1);
+    margin-right: calc(var(--gutter) * -1);
+}
+
+@mixin col() {
+    box-sizing: border-box;
+    flex: 1 0 0;
+    width: 100%;
+    min-width: 0; // fix firefox Bug 1179454 in some cases
+    margin-left: var(--gutter);
+    margin-right: var(--gutter);
+}
+
+@mixin size($size) {
+    @if $size == content {
+        flex: 0 0 auto;
+        width: auto;
+    } @else if $size == auto {
+        flex: 1 0 0;
+        width: 100%;
+    } @else if meta.type-of($size) == number {
+        flex: 0 0 auto;
+        width: calc(100% * #{$size} / var(--columns) - var(--gutter) * 2 - 0.1px);
+    } @else {
+        @error "Argument value must be 'auto', 'adaptive' or a number";
+    }
+}
+
+@mixin offset($offset) {
+    @if meta.type-of($offset) == number and $offset >= 0 {
+        margin-left: calc(100% * #{$offset} / var(--columns) + var(--gutter));
+    } @else {
+        @error "Argument value must be a number";
+    }
+}
